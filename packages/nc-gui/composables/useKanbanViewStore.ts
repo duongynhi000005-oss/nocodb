@@ -729,7 +729,8 @@ const [useProvideKanbanViewStore, useKanbanViewStore] = useInjectionState(
       }
     }
 
-    async function updateRowProperty(toUpdate: Row, property: string) {
+    /** `notify: false` (Cmd+K) throws the error message instead of toasting it. */
+    async function updateRowProperty(toUpdate: Row, property: string, { notify = true }: { notify?: boolean } = {}) {
       try {
         const id = extractPkFromRow(toUpdate.row, meta?.value?.columns as ColumnType[])
 
@@ -758,7 +759,9 @@ const [useProvideKanbanViewStore, useKanbanViewStore] = useInjectionState(
 
         return updatedRowData
       } catch (e: any) {
-        message.error(`${t('msg.error.rowUpdateFailed')} ${await extractSdkResponseErrorMsg(e)}`)
+        const errorMsg = `${t('msg.error.rowUpdateFailed')} ${await extractSdkResponseErrorMsg(e)}`
+        if (!notify) throw new Error(errorMsg)
+        message.error(errorMsg)
       }
     }
 
@@ -1391,6 +1394,7 @@ const [useProvideKanbanViewStore, useKanbanViewStore] = useInjectionState(
       groupingFieldColOptions,
       groupingFieldColumn,
       updateOrSaveRow,
+      updateRowProperty,
       updateRecordOrder,
       addEmptyRow,
       addOrEditStackRow,
