@@ -6008,7 +6008,8 @@
     "noTextWidgetSelected": "No text widget selected",
     "scriptDocs": "Script Docs",
     "editScript": "Edit Script",
-    "notFound": "Not found"
+    "notFound": "Not found",
+    "goToApp": "Go to App"
   },
   "activity": {
     "blockUser": "Block user",
@@ -8050,7 +8051,8 @@
       "renameFileFailed": "Error while renaming file",
       "failedToLoadMetadataDiff": "Failed to load metadata diff",
       "failedToLoadMonacoEditor": "Failed to load Monaco Editor",
-      "stripePublishableKeyNotFound": "Stripe publishable key not found"
+      "stripePublishableKeyNotFound": "Stripe publishable key not found",
+      "notAllowedToCreateBase": "You are not allowed to create project"
     },
     "toast": {
       "changesSaved": "Changes saved",
