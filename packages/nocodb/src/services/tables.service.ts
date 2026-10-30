@@ -251,7 +251,11 @@ export class TablesService {
       );
     }
 
-    if (param.table.table_name.length > tableNameLengthLimit) {
+    const isByteLimited = sqlClientType === 'pg' || sqlClientType === 'oracledb';
+    const effectiveTableNameLength = isByteLimited
+      ? Buffer.byteLength(param.table.table_name, 'utf8')
+      : param.table.table_name.length;
+    if (effectiveTableNameLength > tableNameLengthLimit) {
       NcError.get(context).invalidRequestBody(
         `Table name exceeds ${tableNameLengthLimit} characters`,
       );
