@@ -21,7 +21,12 @@ export const Image = TiptapImage.extend<ImageOptions, { markdown: MarkdownNodeSp
   addStorage() {
     return {
       markdown: {
-        serialize: defaultMarkdownSerializer.nodes.image!,
+        serialize(state, node, parent, index) {
+          defaultMarkdownSerializer.nodes.image!(state, node, parent, index)
+          if (node.isBlock) {
+            state.closeBlock(node)
+          }
+        },
         parse: {
           setup(markdownit) {
             // Conditionally apply mdImageAsText plugin based on renderImagesAsLinks option
